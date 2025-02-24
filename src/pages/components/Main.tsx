@@ -91,8 +91,8 @@ export default function Main() {
   };
 
   return (
-    <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#231651] rounded-[30px] flex flex-row'>
-      <div className='w-[450px] m-[10px] rounded-[30px] bg-[#d6fff6] py-5 px-4 shadow-lg'>
+    <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[470px] h-[500px] bg-[#231651] rounded-[30px] flex flex-row overflow-hidden main'>
+      <div className='min-w-[450px] m-[10px] rounded-[30px] bg-[#d6fff6] py-5 px-4 shadow-lg'>
         <div className='grid grid-cols-[70%,15%,15%] items-center mb-10'>
           <h2 className='text-xl font-bold ml-4'>
             {currentDate.format('MMMM YYYY')}

@@ -22,3 +22,14 @@ body {
 .custom-scrollbar::-webkit-scrollbar {
   display: none;
 }
+.main {
+  animation: intro 1s ease forwards;
+}
+@keyframes intro {
+  from {
+    width: 470px;
+  }
+  to {
+    width: 800px;
+  }
+}
