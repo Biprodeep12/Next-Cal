@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import dayjs from 'dayjs';
 import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
 import { db } from '@/firebase/firebase';
@@ -16,27 +16,38 @@ export default function Main() {
   const startDay = startOfMonth.startOf('week');
   const endDay = endOfMonth.endOf('week');
 
-  const days = [];
-  let day = startDay;
-  while (day.isBefore(endDay, 'day')) {
-    days.push(day);
-    day = day.add(1, 'day');
-  }
+  const days = useMemo(() => {
+    const tempDays = [];
+    let day = startDay.clone();
+    while (day.isBefore(endDay, 'day')) {
+      tempDays.push(day);
+      day = day.add(1, 'day').clone();
+    }
+    return tempDays;
+  }, [currentDate]);
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const eventsSnapshot = await getDocs(collection(db, 'events'));
-      const eventsData: { [key: string]: string[] } = {};
-      eventsSnapshot.forEach((doc) => {
-        eventsData[doc.id] = doc.data().events;
-      });
-      setEvents(eventsData);
+      try {
+        console.log('Fetching events...');
+        const querySnapshot = await getDocs(collection(db, 'events'));
+        const eventsData: { [key: string]: string[] } = {};
+
+        querySnapshot.forEach((doc) => {
+          eventsData[doc.id] = doc.data().events || [];
+        });
+
+        console.log('Fetched events:', eventsData);
+        setEvents(eventsData);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
     };
 
     fetchEvents();
   }, []);
 
-  const handleDayClick = (day: any) => {
+  const handleDayClick = (day: dayjs.Dayjs) => {
     setSelectedDate(day);
   };
 
