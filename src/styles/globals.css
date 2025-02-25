@@ -23,7 +23,7 @@ body {
   display: none;
 }
 .main {
-  animation: intro 1s ease forwards;
+  animation: intro 1s ease 1s forwards;
 }
 @keyframes intro {
   from {
@@ -31,5 +31,62 @@ body {
   }
   to {
     width: 800px;
+  }
+}
+.kalo {
+  animation: evnt 1s ease 1s forwards;
+  opacity: 0;
+}
+@keyframes evnt {
+  from {
+    opacity: 0;
+    transform: translate(0, -50px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+.alert {
+  opacity: 0;
+  bottom: 0;
+  animation: altIntro 1s ease forwards;
+}
+@keyframes altIntro {
+  from {
+    opacity: 0;
+    bottom: 0;
+  }
+  to {
+    opacity: 1;
+    bottom: 50px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .main {
+    flex-direction: column;
+    max-width: 100%;
+    top: 470px;
+    translate: 0, 0;
+    border-radius: 0;
+    margin: 100px 0;
+  }
+}
+@media screen and (max-width: 500px) {
+  .calo {
+    min-width: 200px;
+  }
+  .nav {
+    height: 70px;
+  }
+  .main {
+    top: 450px;
+  }
+  .logo {
+    font-size: 30px;
+    left: 30px;
+  }
+  .ent {
+    margin: 0 10px;
   }
 }
