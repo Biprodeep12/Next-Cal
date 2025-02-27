@@ -104,8 +104,8 @@ export default function Main() {
 
   return (
     <>
-      <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[470px]  bg-[#231651] rounded-[30px] flex flex-row overflow-hidden main'>
-        <div className='min-w-[450px] h-[470px] m-[10px] rounded-[30px] bg-[#d6fff6] py-5 px-4 shadow-lg calo'>
+      <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[470px] bg-[#231651] rounded-[30px] flex flex-row overflow-hidden main'>
+        <div className='max-w-[450px] min-w-[450px] w-screen h-[470px] m-[10px] rounded-[30px] bg-[#d6fff6] py-5 px-4 shadow-lg calo'>
           <div className='grid grid-cols-[70%,15%,15%] items-center mb-6'>
             <h1 className='text-2xl font-bold ml-4'>
               {currentDate.format('MMMM YYYY')}
@@ -176,7 +176,7 @@ export default function Main() {
           </div>
         </div>
 
-        <div className='py-4 px-2 flex flex-col ent'>
+        <div className='py-4 px-2 flex flex-col ent ent'>
           <h1 className='text-[#d6fff6] text-[30px] mb-2'>Events</h1>
           <h2 className='text-[#d6fff6] text-lg mb-2'>
             {selectedDate.format('MMMM D, YYYY')}
@@ -199,7 +199,7 @@ export default function Main() {
 
           <div className='mt-4'>
             {events[selectedDate.format('YYYY-MM-DD')]?.length > 0 ? (
-              <ul className='text-[#d6fff6] flex flex-col gap-1 overflow-scroll overflow-x-hidden h-[300px] custom-scrollbar'>
+              <ul className='text-[#d6fff6] flex flex-col gap-1 overflow-scroll overflow-x-hidden max-h-[300px] custom-scrollbar'>
                 {events[selectedDate.format('YYYY-MM-DD')].map(
                   (event, index) => (
                     <li

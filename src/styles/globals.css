@@ -78,6 +78,26 @@ body {
   }
   .main {
     flex-direction: column;
-    transform: translate(-50%, -50%) scale(0.4);
+    animation: none;
+    min-width: 200px;
+    max-width: 470px;
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+  .calo {
+    width: 100%;
+  }
+  .ent {
+    padding: 0px 10px 20px 10px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .main {
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+}
+@media screen and (max-width: 340px) {
+  .logo {
+    transform: scale(0.9);
+    left: 20px;
   }
 }
