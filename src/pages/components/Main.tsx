@@ -4,7 +4,11 @@ import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
 import { db } from '@/firebase/firebase';
 import { Plus, Trash2 } from 'lucide-react';
 
-export default function Main() {
+interface MainProps {
+  theme: { bg: string; accent: string };
+}
+
+export default function Main({ theme }: MainProps) {
   const [currentDate, setCurrentDate] = useState(dayjs());
   const [selectedDate, setSelectedDate] = useState(dayjs());
   const [events, setEvents] = useState<{ [key: string]: string[] }>({});
@@ -104,8 +108,12 @@ export default function Main() {
 
   return (
     <>
-      <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[470px] bg-[#231651] rounded-[30px] flex flex-row overflow-hidden main'>
-        <div className='max-w-[450px] min-w-[450px] w-screen h-[470px] m-[10px] rounded-[30px] bg-[#d6fff6] py-5 px-4 shadow-lg calo'>
+      <div
+        className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[470px]  rounded-[30px] flex flex-row overflow-hidden main'
+        style={{ backgroundColor: theme.accent }}>
+        <div
+          className='max-w-[450px] min-w-[450px] w-screen h-[470px] m-[10px] rounded-[30px]  py-5 px-4 shadow-lg calo'
+          style={{ color: theme.accent, backgroundColor: theme.bg }}>
           <div className='grid grid-cols-[70%,15%,15%] items-center mb-6'>
             <h1 className='text-2xl font-bold ml-4'>
               {currentDate.format('MMMM YYYY')}
@@ -145,19 +153,18 @@ export default function Main() {
               return (
                 <div
                   key={index}
-                  className={`flex justify-center items-center relative h-[50px] p-2 rounded-md m-1 hover:bg-[#aba5c5] hover:text-[#d6fff6] cursor-pointer transition-all ${
-                    day.isSame(currentDate, 'month') ? '' : 'text-gray-400'
-                  } ${
+                  className={`flex justify-center items-center relative h-[50px] p-2 rounded-md m-1 hover:bg-[#aba5c5] hover:text-[#d6fff6] cursor-pointer transition-all 
+    ${day.isSame(currentDate, 'month') ? '' : 'text-gray-400'}
+    ${
+      day.isSame(selectedDate, 'day')
+        ? 'border-2 border-blue-500'
+        : 'border-2 border-[transparent]'
+    }`}
+                  style={
                     day.isSame(dayjs(), 'day')
-                      ? 'bg-[#231651] text-[#d6fff6]'
-                      : ''
+                      ? { backgroundColor: theme.accent, color: theme.bg }
+                      : undefined
                   }
-          ${
-            day.isSame(selectedDate, 'day')
-              ? 'border-2 border-blue-500'
-              : 'border-2 border-[#d6fff6]'
-          }
-        `}
                   onClick={() => handleDayClick(day)}>
                   {day.format('D')}
 
@@ -177,8 +184,10 @@ export default function Main() {
         </div>
 
         <div className='py-4 px-2 flex flex-col ent ent'>
-          <h1 className='text-[#d6fff6] text-[30px] mb-2'>Events</h1>
-          <h2 className='text-[#d6fff6] text-lg mb-2'>
+          <h1 className=' text-[30px] mb-2' style={{ color: theme.bg }}>
+            Events
+          </h1>
+          <h2 className=' text-lg mb-2' style={{ color: theme.bg }}>
             {selectedDate.format('MMMM D, YYYY')}
           </h2>
 
@@ -192,23 +201,31 @@ export default function Main() {
             />
             <button
               onClick={addEvent}
-              className='ml-2 bg-[#d6fff6] text-[#231651] p-2 rounded-md'>
+              className='ml-2 p-2 rounded-md'
+              style={{ backgroundColor: theme.bg, color: theme.accent }}>
               <Plus />
             </button>
           </div>
 
           <div className='mt-4'>
             {events[selectedDate.format('YYYY-MM-DD')]?.length > 0 ? (
-              <ul className='text-[#d6fff6] flex flex-col gap-1 overflow-scroll overflow-x-hidden max-h-[300px] custom-scrollbar'>
+              <ul className=' flex flex-col gap-1 overflow-scroll overflow-x-hidden max-h-[300px] custom-scrollbar'>
                 {events[selectedDate.format('YYYY-MM-DD')].map(
                   (event, index) => (
                     <li
                       key={index}
-                      className='bg-[#d6fff6] text-[#231651] p-2 rounded-md my-1 flex justify-between items-center kalo'>
+                      className='p-2 rounded-md my-1 flex justify-between items-center kalo'
+                      style={{
+                        backgroundColor: theme.bg,
+                        color: theme.accent,
+                      }}>
                       <span>{event}</span>
                       <button
                         onClick={() => removeEvent(event)}
-                        className='ml-2 text-[#231651] p-1 rounded-md text-sm'>
+                        className='ml-2 p-1 rounded-md text-sm'
+                        style={{
+                          color: theme.accent,
+                        }}>
                         <Trash2 />
                       </button>
                     </li>
