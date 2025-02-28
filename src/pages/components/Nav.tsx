@@ -2,10 +2,12 @@ import { Calendar } from 'lucide-react';
 
 interface NavProps {
   onThemeChange: (themeIndex: number) => void;
-  theme: { bg: string; accent: string };
+  theme?: { bg: string; accent: string };
 }
 
-export default function Nav({ onThemeChange, theme }: NavProps) {
+const defaultTheme = { bg: '#FFFFFF', accent: '#000000' };
+
+export default function Nav({ onThemeChange, theme = defaultTheme }: NavProps) {
   return (
     <>
       <div
