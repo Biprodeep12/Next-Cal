@@ -5,10 +5,12 @@ import { db } from '@/firebase/firebase';
 import { Plus, Trash2 } from 'lucide-react';
 
 interface MainProps {
-  theme: { bg: string; accent: string };
+  theme?: { bg: string; accent: string };
 }
 
-export default function Main({ theme }: MainProps) {
+export default function Main({
+  theme = { bg: '#FFFFFF', accent: '#000000' },
+}: MainProps) {
   const [currentDate, setCurrentDate] = useState(dayjs());
   const [selectedDate, setSelectedDate] = useState(dayjs());
   const [events, setEvents] = useState<{ [key: string]: string[] }>({});
